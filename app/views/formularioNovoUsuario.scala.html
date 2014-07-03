@@ -1,0 +1,27 @@
+@(formUsuario: Form[Usuario])
+@import helper._
+
+@main("Criar usuario"){
+  @helper.form(routes.Application.cadastraUsuario) {
+  
+  		<br>
+  		<br>  
+  		<br>      
+
+		
+	<div class="container">
+
+      <form class="form-signin" role="form">
+        <h2 class="form-signin-heading">Login</h2>
+        @inputText(formUsuario("nome"), '_label -> "Nome do usuario:  ")
+        @inputText(formUsuario("email"), '_label -> "Email:  ")
+        <input class="btn btn-primary" type="submit">
+      </form>
+      
+      <br><p class="text-muted"> <br> <br>Use <code>admin</code> se voce for o administrador da pagina.<br>
+      Suas informacoes serao salvas no site pelo seu nome de usuario.
+      </p>
+
+    </div> <!-- /container -->
+}
+ }

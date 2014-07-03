@@ -1,0 +1,44 @@
+@(hacks: List[Hackfest])
+ 
+@main("admin"){
+	@helper.form(routes.Application.confirmaPresenca){
+	<br>
+	<br>
+	<br>
+	<h2 class="section-heading" align="center"><code>&raquo;Hackfests divulgados</code></h2>
+	
+	@if(hacks.isEmpty){
+		    <h3>Nao ha nenhum evento cadastrado.</h3>
+		  } else {
+		    
+		     
+		    @for(hack <- hacks){
+		      
+		      <div class="list-group">
+				  <a href="#" class="list-group-item active">
+				  
+				    <h4 class="list-group-item-heading">Nome: @hack.getNome</h4>
+				    <p class="list-group-item-text">Tema: @hack.getTema</p>
+				  </a>
+				  <div class="checkbox">
+			          <label>
+			            <input type="checkbox" value="confirmar">Confirmar Presenca
+			          </label>
+		        	</div>
+				</div>
+				
+		      
+		      
+		    }
+		    <p align="center"><input class="btn btn-primary" type="submit"></p>	
+			  
+		}
+		
+	}
+}
+		
+	
+
+
+
+
