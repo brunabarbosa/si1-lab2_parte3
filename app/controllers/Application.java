@@ -18,14 +18,18 @@ public class Application extends Controller {
 
 	static GenericDAO dao = new GenericDAOImpl();
 	static Form<Usuario> usuarioForm = Form.form(Usuario.class);
-	static Form<Hackfest> hackForm = Form.form(Hackfest.class);
+	static Form<Hackfest> hackForm = Form.form(Hackfest.class);	
 	static Usuario usuarioAtual;
 
 	@Transactional
 	public static Result index() {
-		if (usuarioAtual == null) {
+		
+		List<Usuario> result = getDao().findAllByClassName("Usuario");
+		if (result.isEmpty()) {
 			return ok(formularioNovoUsuario.render(usuarioForm, "Empty"));
 		}
+		
+		usuarioAtual = result.get(result.size() - 1);
 		return ok(index.render(usuarioAtual.getNome()));
 	}
 
