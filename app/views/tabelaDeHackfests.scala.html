@@ -1,7 +1,6 @@
-@(hacks: List[Hackfest])
+@(hacks: List[Hackfest])(lastUserName : String)
  
-@main("admin"){
-	@helper.form(routes.Application.confirmaPresenca){
+@main(lastUserName){
 	<br>
 	<br>
 	<br>
@@ -21,7 +20,10 @@
 				    <p class="list-group-item-text">Descricao: @hack.getDescricao</p>
 				    <p class="list-group-item-text">Tema: @hack.getTema</p>
 				    <p class="list-group-item-text">Data: @hack.getData</p>
+				    <p class="list-group-item-text">Presencas confirmadas: @hack.getUsuarios.size</p>
 				  </a>
+				  
+				  <a href="@routes.Application.confirmaPresenca(hack.getId())">Confirmar</a>
 				  
 				</div>
 				
@@ -31,8 +33,6 @@
 		    
 			  
 		}
-		
-	}
 }
 		
 	

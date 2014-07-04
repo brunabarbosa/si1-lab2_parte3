@@ -32,7 +32,7 @@ public class Application extends Controller {
 	@Transactional
 	public static Result tabela() {
 		List<Hackfest> result = getDao().findAllByClassName("Hackfest");
-		return ok(tabelaDeHackfests.render(result));
+		return ok(tabelaDeHackfests.render(result, usuarioAtual.getNome()));
 	}
 
 	public static Result formularioNovoUsuario() {
@@ -48,15 +48,20 @@ public class Application extends Controller {
 	}
 
 	@Transactional
-	public static Result confirmaPresenca() {
-		return TODO;
+	public static Result confirmaPresenca(Long id) {
+		Hackfest hack = new Hackfest();
+		hack = getDao().findByEntityId(Hackfest.class, id);
+		hack.addUsuario(usuarioAtual);
+		dao.merge(hack);
+		dao.flush();
+		return  ok(index.render(usuarioAtual.getNome()));
 
 	}
 
 	@Transactional
 	public static Result cadastraHackfest() {
 		// todas as metas do bd
-		Form<Hackfest> form = Form.form(Hackfest.class).bindFromRequest();
+		Form<Hackfest> form = hackForm.bindFromRequest();
 		if (form.hasErrors()) {
 			return badRequest(views.html.formularioNovoHackfest.render(form,
 					usuarioAtual.getNome()));
@@ -73,14 +78,13 @@ public class Application extends Controller {
 	@Transactional
 	public static Result cadastraUsuario() {
 		// todas as metas do bd
-		Form<Usuario> form = Form.form(Usuario.class).bindFromRequest();
+		Form<Usuario> form = usuarioForm.bindFromRequest();
 		if (form.hasErrors()) {
 			return badRequest(formularioNovoUsuario.render(form,
 					usuarioAtual.getNome()));
 		}
 
 		usuarioAtual = form.get();
-
 		// Persiste o Livro criado
 		getDao().persist(form.get());
 		// Espelha no Banco de Dados
