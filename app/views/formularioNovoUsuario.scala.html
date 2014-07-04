@@ -1,7 +1,7 @@
-@(formUsuario: Form[Usuario])
+@(formUsuario: Form[Usuario])(lastUserName : String)
 @import helper._
 
-@main("Criar usuario"){
+@main(lastUserName){
   @helper.form(routes.Application.cadastraUsuario) {
   
   		<br>

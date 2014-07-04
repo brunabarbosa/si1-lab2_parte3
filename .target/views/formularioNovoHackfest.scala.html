@@ -1,7 +1,7 @@
-@(formHackfest: Form[Hackfest])
+@(formHackfest: Form[Hackfest])(lastUserName : String)
 @import helper._
 
-@main("Criar usuario"){
+@main(lastUserName){
   @helper.form(routes.Application.cadastraHackfest) {
   
   		<br>
@@ -14,7 +14,9 @@
       <form class="form-signin" role="form">
         <h2 class="form-signin-heading">Login</h2>
         @inputText(formHackfest("nome"), '_label -> "Nome do Hackfest:  ")
+        @inputText(formHackfest("descricao"), '_label -> "Descricao do evento:  ")
         @inputText(formHackfest("tema"), '_label -> "Tema do evento:  ")
+        @inputText(formHackfest("data"), 'placeholder -> "yyyy-mm-dd", '_label -> "Data do evento:  ")
         <input class="btn btn-primary" type="submit">
       </form>
       
